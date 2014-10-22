@@ -1,10 +1,18 @@
 var nums = {
-    even: [],
-    odd: [],
-    nines: [],
-    prime: [],
-    all: []
-};
+        even: [],
+        odd: [],
+        nines: [],
+        prime: [],
+        all: []
+    },
+    primes = [7, 9],
+    selectOptions = [
+        "Odd",
+        "Even",
+        "Prime",
+        "Nines",
+        "All"
+    ];
 function selectNumGroup(key){
     var keys = Object.keys(nums),
         y,
@@ -46,6 +54,9 @@ function make100s(){
             r.appendChild(c);
             c.innerHTML = i;
             (even ? nums.even : nums.odd).push(c);
+            if(primes.indexOf(i) !== -1){
+                nums.prime.push(c);
+            }
             c.className = even ? 'even' : 'odd';
             b(i, c);
         }
@@ -67,13 +78,7 @@ function init(){
         stack = new joStack(),
         showInstructions = new joButton("", "instructionsButton"),
         label = new joLabel("Select"),
-        opt = new joSelect([
-            "Odd",
-            "Even",
-            "Prime",
-            "Nines",
-            "All"
-        ]),
+        opt = new joOption(selectOptions),
         card = new joCard([label, opt, showInstructions, make100s()]);
     instructions.src = 'instructions.html';
     instructionsView.setContainer(instructions);
