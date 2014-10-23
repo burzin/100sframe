@@ -22,7 +22,7 @@ function selectNumGroup(key){
         y,
         n,
         x;
-    for(x = 0; x < nums[key].length; x++){
+    for(x = 0; x < keys.length; x++){
         n = nums[keys[x]];
         for(y = 0; y < n.length; y++){
             n[y].style.color = '';
