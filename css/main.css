@@ -37,12 +37,15 @@ body {
     border: solid 1px black;
     text-align: center;
 }
+
 .even {
     background: lightyellow;
 }
+
 .odd {
     background: lightblue;
 }
+
 h1 {
     text-align: center;
     color: white;

@@ -1,14 +1,18 @@
 var nums = {
         even: [],
         odd: [],
+        fives: [],
         nines: [],
+        tens: [],
         prime: [],
         all: []
     },
-    primes = [7, 9],
+    primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97],
     selectOptions = [
         "Odd",
         "Even",
+        "Fives",
+        "Tens",
         "Prime",
         "Nines",
         "All"
@@ -18,7 +22,7 @@ function selectNumGroup(key){
         y,
         n,
         x;
-    for(x = 0; x < keys.length; x++){
+    for(x = 0; x < nums[key].length; x++){
         n = nums[keys[x]];
         for(y = 0; y < n.length; y++){
             n[y].style.color = '';
@@ -26,12 +30,12 @@ function selectNumGroup(key){
         }
     }
     for(y = 0; y < nums[key].length; y++){
-        nums[key][y].style.color = 'black';
-        nums[key][y].style.background = 'blue';
+        nums[key][y].style.color = 'red';
+       nums[key][y].style.background = '';
     }
 }
 function make100s(){
-    var i = 0,
+    var i = 1,
         d = document.createElement('div'),
         t = document.createElement('table'),
         r = document.createElement('tr'),
@@ -49,7 +53,6 @@ function make100s(){
         t.appendChild(r);
         for(y=0; y < 10; y++){
             even = i % 2 === 0;
-            i++;
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
@@ -57,8 +60,18 @@ function make100s(){
             if(primes.indexOf(i) !== -1){
                 nums.prime.push(c);
             }
+            if(i % 5 === 0){
+                nums.fives.push(c);
+            }
+            if(i % 10 === 0){
+                nums.tens.push(c);
+            }
+            if(i % 9 === 0){
+                nums.nines.push(c);
+            }
             c.className = even ? 'even' : 'odd';
             b(i, c);
+            i++;
         }
     }
     d.appendChild(t);
@@ -87,6 +100,7 @@ function init(){
         screen.showPopup(instructionsView);
     });
     opt.selectEvent.subscribe(function(index){
+        //stack.push(card);
         var group = opt.data[index];
         selectNumGroup(group.toLowerCase());
     });
