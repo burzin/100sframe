@@ -75,6 +75,11 @@ table tr td:nth-child(odd){
     border: solid 1px black;
     text-align: center;
 }
+.addTable td {
+    cursor: pointer;
+    border: solid 1px black;
+    text-align: center;
+}
 h1 {
     text-align: center;
     color: white;

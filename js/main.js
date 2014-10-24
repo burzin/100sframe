@@ -106,6 +106,39 @@ function makeAdd(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
+           if ( (i <= 12+12) && (x ===12) || (y === 12))  {
+             c.style.background = 'mistyrose';
+            }
+           if ( (i <= 11+11) &&  ((x ===11) || (y === 11)))  {
+             c.style.background = 'honeydew';
+            }
+           if ( (i <= 10+10) &&  ((x ===10) || (y === 10)))  {
+             c.style.background = 'greenyellow';
+            }
+           if ( (i <= 9+9) &&  ((x ===9) || (y === 9)))  {
+             c.style.background = 'gainsboro';
+            }
+           if ( (i <= 8+8) &&  ((x ===8) || (y === 8)))  {
+             c.style.background = 'gold';
+            }
+           if ( (i <= 7+7) &&  ((x ===7) || (y === 7)))  {
+             c.style.background = 'cyan';
+            }
+           if ( (i <= 6+6) &&  ((x ===6) || (y === 6)))  {
+             c.style.background = 'cadetblue';
+            }
+           if ( (i <= 5+5) &&  ((x ===5) || (y === 5)))  {
+             c.style.background = 'lightblue';
+            }
+           if ( (i <= 4+4) &&  ((x ===4) || (y === 4)))  {
+             c.style.background = 'bisque';
+            }
+           if ( (i <= 3+3) &&  ((x ===3) || (y === 3)))  {
+             c.style.background = 'aqua';
+            }
+           if ( (i <= 2+2) &&  ((x ===2) || (y === 2)))  {
+             c.style.background = 'yellow';
+            }
             b(i, c);
         }
     }
@@ -136,6 +169,42 @@ function makeMulti(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
+//	    if ( i % 12 === 0) {
+//             c.style.background = 'mistyrose';
+//            }
+           if ( (i <= 12*12) && (x ===12) || (y === 12))  {
+             c.style.background = 'mistyrose';
+            }
+           if ( (i <= 11*11) &&  ((x ===11) || (y === 11)))  {
+             c.style.background = 'honeydew';
+            }
+           if ( (i <= 10*10) &&  ((x ===10) || (y === 10)))  {
+             c.style.background = 'greenyellow';
+            }
+           if ( (i <= 9*9) &&  ((x ===9) || (y === 9)))  {
+             c.style.background = 'gainsboro';
+            }
+           if ( (i <= 8*8) &&  ((x ===8) || (y === 8)))  {
+             c.style.background = 'gold';
+            }
+           if ( (i <= 7*7) &&  ((x ===7) || (y === 7)))  {
+             c.style.background = 'cyan';
+            }
+           if ( (i <= 6*6) &&  ((x ===6) || (y === 6)))  {
+             c.style.background = 'cadetblue';
+            }
+           if ( (i <= 5*5) &&  ((x ===5) || (y === 5)))  {
+             c.style.background = 'lightblue';
+            }
+           if ( (i <= 4*4) &&  ((x ===4) || (y === 4)))  {
+             c.style.background = 'bisque';
+            }
+           if ( (i <= 3*3) &&  ((x ===3) || (y === 3)))  {
+             c.style.background = 'aqua';
+            }
+           if ( (i <= 2*2) &&  ((x ===2) || (y === 2)))  {
+             c.style.background = 'yellow';
+            }
             b(i, c);
         }
     }
