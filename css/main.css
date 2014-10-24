@@ -1,7 +1,7 @@
 body {
-    font-size: 1.5em;
     font-family: sans-serif;
     text-align: center;
+    font-size: 100%;
 }
 .instructionsButton {
     background: url('http://img2.wikia.nocookie.net/__cb20130715095303/sword-of-the-stars-the-pit/images/thumb/0/06/Question-mark.jpg/480px-Question-mark.jpg');
@@ -22,7 +22,8 @@ table tr td:nth-child(even){
 table tr td:nth-child(odd){
     background: lightblue;
 }
-
+.titleCell {
+    background: transparent !important;
 }
 .hundredsChart {
     display:inline-block;
@@ -34,9 +35,11 @@ table tr td:nth-child(odd){
     border-collapse: collapse;
     box-shadow: 3px 3px 8px;
     margin: auto;
+    font-size: 100%;
 }
 .multiChart {
     display:inline-block;
+    background: url('../img/stars.jpg');
     padding: 20px;
     margin-top: 10px;
 }
@@ -47,6 +50,7 @@ table tr td:nth-child(odd){
 }
 .addChart {
     display:inline-block;
+    background: url('../img/stars.jpg');
     padding: 20px;
     margin-top: 10px;
 }
@@ -63,15 +67,11 @@ table tr td:nth-child(odd){
 }
 .hundredsTable td {
     cursor: pointer;
-    height: 1em;
-    width: 1em;
     border: solid 1px black;
     text-align: center;
 }
 .multiTable td {
     cursor: pointer;
-    height: 1em;
-    width: 1em;
     border: solid 1px black;
     text-align: center;
 }

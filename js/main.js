@@ -49,6 +49,7 @@ function make100s(){
         y,
         even;
     r.appendChild(c);
+    c.className = 'titleCell';
     c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
     c.setAttribute('colspan', 10);
     t.appendChild(r);
@@ -92,8 +93,9 @@ function makeAdd(){
         y,
         even;
     r.appendChild(c);
-    c.innerHTML = 'Addition';
     c.setAttribute('colspan', 12);
+    c.className = 'titleCell';
+    c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
     t.appendChild(r);
     t.className = 'addTable';
     for(x=0; x <= 10; x++){
@@ -121,7 +123,8 @@ function makeMulti(){
         y,
         even;
     r.appendChild(c);
-    c.innerHTML = 'Multiplication';
+    c.className = 'titleCell';
+    c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
     c.setAttribute('colspan', 12);
     t.appendChild(r);
     t.className = 'multiTable';
