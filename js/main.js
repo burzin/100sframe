@@ -139,6 +139,9 @@ function makeAdd(){
            if ( (i <= 2+2) &&  ((x ===2) || (y === 2)))  {
              c.style.background = 'yellow';
             }
+           if ( (i <= 1+1) &&  ((x ===1) || (y === 1)))  {
+             c.style.background = 'pink';
+            }
             b(i, c);
         }
     }
