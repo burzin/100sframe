@@ -17,6 +17,11 @@ var nums = {
         "Nines",
         "All"
     ];
+   boardOptions = [
+        "100s Chart",
+        "Addition",
+        "Multiplication"
+    ];
 function selectNumGroup(key){
     var keys = Object.keys(nums),
         y,
@@ -78,11 +83,70 @@ function make100s(){
     d.className = 'hundredsChart';
     return d;
 }
+function makeAdd(){
+    var i = 1,
+        d = document.createElement('div'),
+        t = document.createElement('table'),
+        r = document.createElement('tr'),
+        c = document.createElement('td'),
+        x,
+        y,
+        even;
+    r.appendChild(c);
+    c.innerHTML = 'Addition';
+    c.setAttribute('colspan', 12);
+    t.appendChild(r);
+    t.className = 'addTable';
+    for(x=0; x <= 10; x++){
+        r = document.createElement('tr');
+        t.appendChild(r);
+        for(y=0; y <= 10; y++){
+            i = x+y;
+            c = document.createElement('td');
+            r.appendChild(c);
+            c.innerHTML = i;
+            b(i, c);
+        }
+    }
+    d.appendChild(t);
+    d.className = 'addChart';
+    return d;
+}
+function makeMulti(){
+    var i = 1,
+        d = document.createElement('div'),
+        t = document.createElement('table'),
+        r = document.createElement('tr'),
+        c = document.createElement('td'),
+        x,
+        y,
+        even;
+    r.appendChild(c);
+    c.innerHTML = 'Multiplication';
+    c.setAttribute('colspan', 12);
+    t.appendChild(r);
+    t.className = 'multiTable';
+    for(x=1; x <= 12; x++){
+        r = document.createElement('tr');
+        t.appendChild(r);
+        for(y=1; y <= 12; y++){
+            i = x*y;
+            c = document.createElement('td');
+            r.appendChild(c);
+            c.innerHTML = i;
+            b(i, c);
+        }
+    }
+    d.appendChild(t);
+    d.className = 'multiChart';
+    return d;
+}
 function b(i, c){
     c.onclick = function(){
         alert(i);
     };
 }
+
 function init(){
     jo.load();
     var screen,
@@ -92,7 +156,10 @@ function init(){
         showInstructions = new joButton("", "instructionsButton"),
         label = new joLabel("Select"),
         opt = new joOption(selectOptions),
-        card = new joCard([label, opt, showInstructions, make100s()]);
+        boardOpt = new joOption(boardOptions),
+        //card = new joCard([label, opt, showInstructions, make100s()]);
+        //card = new joCard([label, opt, showInstructions, makeMulti()]);
+        card = new joCard([label, opt, showInstructions, makeAdd(), boardOpt]);
     instructions.src = 'instructions.html';
     instructionsView.setContainer(instructions);
     opt.setValue(opt.data.length-1);

@@ -17,8 +17,8 @@ body {
     width: 100%;
 }
 .hundredsChart {
-    background: url('../img/stars.jpg');
     display:inline-block;
+    background: url('../img/stars.jpg');
     padding: 20px;
     margin-top: 10px;
 }
@@ -27,13 +27,33 @@ body {
     box-shadow: 3px 3px 8px;
     margin: auto;
 }
+.multiChart {
+    display:inline-block;
+    padding: 20px;
+    margin-top: 10px;
+}
+.multiTable {
+    border-collapse: collapse;
+    box-shadow: 3px 3px 8px;
+    margin: auto;
+}
 .hundredsTable td:hover {
+    
+}
+.multiTable td:hover {
     
 }
 .hundredsTable td {
     cursor: pointer;
-    height: 50px;
-    width: 50px;
+    height: 2em;
+    width: 2em;
+    border: solid 1px black;
+    text-align: center;
+}
+.multiTable td {
+    cursor: pointer;
+    height: 1em;
+    width: 1em;
     border: solid 1px black;
     text-align: center;
 }
