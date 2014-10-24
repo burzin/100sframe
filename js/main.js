@@ -74,7 +74,6 @@ function make100s(){
             if(i % 9 === 0){
                 nums.nines.push(c);
             }
-            c.className = even ? 'even' : 'odd';
             b(i, c);
             i++;
         }
@@ -156,16 +155,26 @@ function init(){
         showInstructions = new joButton("", "instructionsButton"),
         label = new joLabel("Select"),
         opt = new joOption(selectOptions),
-        boardOpt = new joOption(boardOptions),
-        //card = new joCard([label, opt, showInstructions, make100s()]);
-        //card = new joCard([label, opt, showInstructions, makeMulti()]);
-        card = new joCard([label, opt, showInstructions, makeAdd(), boardOpt]);
+        boardOpt = new joOption(boardOptions);
     instructions.src = 'instructions.html';
     instructionsView.setContainer(instructions);
     opt.setValue(opt.data.length-1);
     showInstructions.selectEvent.subscribe(function(){
         screen.showPopup(instructionsView);
     });
+    boardOpt.selectEvent.subscribe(function(index){
+        var table;
+        if(index === '0'){
+            table = make100s();
+        }else if(index === '1'){
+            table = makeAdd();
+        }else if(index === '2'){
+            table = makeMulti();
+        }
+        card = new joCard([label, opt, showInstructions, table, boardOpt]);
+        stack.push(card);
+    });
+    card = new joCard([label, opt, showInstructions, make100s(), boardOpt]);
     opt.selectEvent.subscribe(function(index){
         //stack.push(card);
         var group = opt.data[index];

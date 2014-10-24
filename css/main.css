@@ -16,6 +16,14 @@ body {
 #title {
     width: 100%;
 }
+table tr td:nth-child(even){
+    background: lightyellow;
+}
+table tr td:nth-child(odd){
+    background: lightblue;
+}
+
+}
 .hundredsChart {
     display:inline-block;
     background: url('../img/stars.jpg');
@@ -55,8 +63,8 @@ body {
 }
 .hundredsTable td {
     cursor: pointer;
-    height: 2em;
-    width: 2em;
+    height: 1em;
+    width: 1em;
     border: solid 1px black;
     text-align: center;
 }
@@ -67,15 +75,6 @@ body {
     border: solid 1px black;
     text-align: center;
 }
-
-.even {
-    background: lightyellow;
-}
-
-.odd {
-    background: lightblue;
-}
-
 h1 {
     text-align: center;
     color: white;
