@@ -22,6 +22,20 @@ var nums = {
         "Addition",
         "Multiplication"
     ];
+   colorTable = [
+        "",
+        "yellow",
+        "aqua",
+        "bisque",
+        "lightblue",
+        "cadetblue",
+        "cyan",
+        "gold",
+        "gainsboro",
+        "greenyellow",
+        "honeydew",
+        "mistyrose",
+   ];
 function selectNumGroup(key){
     var keys = Object.keys(nums),
         y,
@@ -39,6 +53,49 @@ function selectNumGroup(key){
        nums[key][y].style.background = '';
     }
 }
+
+function chooseCellColor( x, y, i, op) {
+ var cellValue;
+ var i = i;
+ cellValue = (op === 'm' ? x*y : x+y);  
+ if ( (i <= cellValue) && (x ===12) || (y === 12))  {
+     return colorTable[12];
+ }
+ if ( (i <= cellValue) &&  ((x ===11) || (y === 11)))  {
+     return colorTable[11];
+ }
+ if ( (i <= cellValue) &&  ((x ===10) || (y === 10)))  {
+     return colorTable[10];
+ }
+ if ( (i <= cellValue) &&  ((x ===9) || (y === 9)))  {
+     return colorTable[9];
+ }
+ if ( (i <= cellValue) &&  ((x ===8) || (y === 8)))  {
+     return colorTable[8];
+ }
+ if ( (i <= cellValue) &&  ((x ===7) || (y === 7)))  {
+     return colorTable[7];
+ }
+ if ( (i <= cellValue) &&  ((x ===6) || (y === 6)))  {
+     return colorTable[6];
+ }
+ if ( (i <= cellValue) &&  ((x ===5) || (y === 5)))  {
+     return colorTable[5];
+ }
+ if ( (i <= cellValue) &&  ((x ===4) || (y === 4)))  {
+     return colorTable[4];
+ }
+ if ( (i <= cellValue) &&  ((x ===3) || (y === 3)))  {
+     return colorTable[3];
+ }
+ if ( (i <= cellValue) &&  ((x ===2) || (y === 2)))  {
+     return colorTable[2];
+ }
+ if ( (i <= cellValue) &&  ((x ===1) || (y === 1)))  {
+     return '';
+ }
+}
+
 function make100s(){
     var i = 1,
         d = document.createElement('div'),
@@ -106,42 +163,7 @@ function makeAdd(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
-           if ( (i <= 12+12) && (x ===12) || (y === 12))  {
-             c.style.background = 'mistyrose';
-            }
-           if ( (i <= 11+11) &&  ((x ===11) || (y === 11)))  {
-             c.style.background = 'honeydew';
-            }
-           if ( (i <= 10+10) &&  ((x ===10) || (y === 10)))  {
-             c.style.background = 'greenyellow';
-            }
-           if ( (i <= 9+9) &&  ((x ===9) || (y === 9)))  {
-             c.style.background = 'gainsboro';
-            }
-           if ( (i <= 8+8) &&  ((x ===8) || (y === 8)))  {
-             c.style.background = 'gold';
-            }
-           if ( (i <= 7+7) &&  ((x ===7) || (y === 7)))  {
-             c.style.background = 'cyan';
-            }
-           if ( (i <= 6+6) &&  ((x ===6) || (y === 6)))  {
-             c.style.background = 'cadetblue';
-            }
-           if ( (i <= 5+5) &&  ((x ===5) || (y === 5)))  {
-             c.style.background = 'lightblue';
-            }
-           if ( (i <= 4+4) &&  ((x ===4) || (y === 4)))  {
-             c.style.background = 'bisque';
-            }
-           if ( (i <= 3+3) &&  ((x ===3) || (y === 3)))  {
-             c.style.background = 'aqua';
-            }
-           if ( (i <= 2+2) &&  ((x ===2) || (y === 2)))  {
-             c.style.background = 'yellow';
-            }
-           if ( (i <= 1+1) &&  ((x ===1) || (y === 1)))  {
-             c.style.background = 'pink';
-            }
+	    c.style.background = chooseCellColor(x, y, i, 'a');
             b(i, c);
         }
     }
@@ -172,42 +194,40 @@ function makeMulti(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
-//	    if ( i % 12 === 0) {
+	    c.style.background = chooseCellColor(x, y, i, 'm');
+//           if ( (i <= 12*12) && (x ===12) || (y === 12))  {
 //             c.style.background = 'mistyrose';
 //            }
-           if ( (i <= 12*12) && (x ===12) || (y === 12))  {
-             c.style.background = 'mistyrose';
-            }
-           if ( (i <= 11*11) &&  ((x ===11) || (y === 11)))  {
-             c.style.background = 'honeydew';
-            }
-           if ( (i <= 10*10) &&  ((x ===10) || (y === 10)))  {
-             c.style.background = 'greenyellow';
-            }
-           if ( (i <= 9*9) &&  ((x ===9) || (y === 9)))  {
-             c.style.background = 'gainsboro';
-            }
-           if ( (i <= 8*8) &&  ((x ===8) || (y === 8)))  {
-             c.style.background = 'gold';
-            }
-           if ( (i <= 7*7) &&  ((x ===7) || (y === 7)))  {
-             c.style.background = 'cyan';
-            }
-           if ( (i <= 6*6) &&  ((x ===6) || (y === 6)))  {
-             c.style.background = 'cadetblue';
-            }
-           if ( (i <= 5*5) &&  ((x ===5) || (y === 5)))  {
-             c.style.background = 'lightblue';
-            }
-           if ( (i <= 4*4) &&  ((x ===4) || (y === 4)))  {
-             c.style.background = 'bisque';
-            }
-           if ( (i <= 3*3) &&  ((x ===3) || (y === 3)))  {
-             c.style.background = 'aqua';
-            }
-           if ( (i <= 2*2) &&  ((x ===2) || (y === 2)))  {
-             c.style.background = 'yellow';
-            }
+//           if ( (i <= 11*11) &&  ((x ===11) || (y === 11)))  {
+//             c.style.background = 'honeydew';
+//            }
+//           if ( (i <= 10*10) &&  ((x ===10) || (y === 10)))  {
+//             c.style.background = 'greenyellow';
+//            }
+//           if ( (i <= 9*9) &&  ((x ===9) || (y === 9)))  {
+//             c.style.background = 'gainsboro';
+//            }
+//           if ( (i <= 8*8) &&  ((x ===8) || (y === 8)))  {
+//             c.style.background = 'gold';
+//            }
+//           if ( (i <= 7*7) &&  ((x ===7) || (y === 7)))  {
+//             c.style.background = 'cyan';
+//            }
+//           if ( (i <= 6*6) &&  ((x ===6) || (y === 6)))  {
+//             c.style.background = 'cadetblue';
+//            }
+//           if ( (i <= 5*5) &&  ((x ===5) || (y === 5)))  {
+//             c.style.background = 'lightblue';
+//            }
+//           if ( (i <= 4*4) &&  ((x ===4) || (y === 4)))  {
+//             c.style.background = 'bisque';
+//            }
+//           if ( (i <= 3*3) &&  ((x ===3) || (y === 3)))  {
+//             c.style.background = 'aqua';
+//            }
+//           if ( (i <= 2*2) &&  ((x ===2) || (y === 2)))  {
+//             c.style.background = 'yellow';
+//            }
             b(i, c);
         }
     }
