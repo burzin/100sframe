@@ -1,7 +1,19 @@
+html {
+    min-height: 100%;
+}
 body {
     font-family: sans-serif;
     text-align: center;
-    font-size: 100%;
+    font-size: 120%;
+    padding-top: 10px;
+}
+joexpando {
+    font-size: 80%;
+}
+jocard, body {
+    background: url('../img/stars.jpg');
+    background-position: center; 
+    background-size: 100% 100%;
 }
 .instructionsButton {
     background: url('http://img2.wikia.nocookie.net/__cb20130715095303/sword-of-the-stars-the-pit/images/thumb/0/06/Question-mark.jpg/480px-Question-mark.jpg');
@@ -10,11 +22,11 @@ body {
     height: 30px;
     width: 30px;
     position: fixed;
-    top: 1px;
-    right: 1px;
+    top: 0.42em;
+    right: 0.3em;
 }
-#title {
-    width: 100%;
+.titleImage {
+    max-height: 4em;
 }
 table tr td:nth-child(even){
     background: lightyellow;
@@ -25,63 +37,18 @@ table tr td:nth-child(odd){
 .titleCell {
     background: transparent !important;
 }
-.hundredsChart {
-    display:inline-block;
+.multiChart, .hundredsChart, .addChart {
     background: url('../img/stars.jpg');
     padding: 20px;
     margin-top: 10px;
 }
-.hundredsTable {
-    border-collapse: collapse;
-    box-shadow: 3px 3px 8px;
-    margin: auto;
-    font-size: 100%;
-}
-.multiChart {
-    display:inline-block;
-    background: url('../img/stars.jpg');
-    padding: 20px;
-    margin-top: 10px;
-}
-.multiTable {
+.hundredsTable, .multiTable, .addTable {
     border-collapse: collapse;
     box-shadow: 3px 3px 8px;
     margin: auto;
 }
-.addChart {
-    display:inline-block;
-    background: url('../img/stars.jpg');
-    padding: 20px;
-    margin-top: 10px;
-}
-.addTable {
-    border-collapse: collapse;
-    box-shadow: 3px 3px 8px;
-    margin: auto;
-}
-.hundredsTable td:hover {
-    
-}
-.multiTable td:hover {
-    
-}
-.hundredsTable td {
+.hundredsTable td, .multiTable td, .addTable td {
     cursor: pointer;
     border: solid 1px black;
     text-align: center;
-}
-.multiTable td {
-    cursor: pointer;
-    border: solid 1px black;
-    text-align: center;
-}
-.addTable td {
-    cursor: pointer;
-    border: solid 1px black;
-    text-align: center;
-}
-h1 {
-    text-align: center;
-    color: white;
-    margin: 5px;
 }

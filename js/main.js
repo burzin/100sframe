@@ -55,45 +55,45 @@ function selectNumGroup(key){
 }
 
 function chooseCellColor( x, y, i, op) {
- var cellValue;
- var i = i;
- cellValue = (op === 'm' ? x*y : x+y);  
- if ( (i <= cellValue) && (x ===12) || (y === 12))  {
-     return colorTable[12];
- }
- if ( (i <= cellValue) &&  ((x ===11) || (y === 11)))  {
-     return colorTable[11];
- }
- if ( (i <= cellValue) &&  ((x ===10) || (y === 10)))  {
-     return colorTable[10];
- }
- if ( (i <= cellValue) &&  ((x ===9) || (y === 9)))  {
-     return colorTable[9];
- }
- if ( (i <= cellValue) &&  ((x ===8) || (y === 8)))  {
-     return colorTable[8];
- }
- if ( (i <= cellValue) &&  ((x ===7) || (y === 7)))  {
-     return colorTable[7];
- }
- if ( (i <= cellValue) &&  ((x ===6) || (y === 6)))  {
-     return colorTable[6];
- }
- if ( (i <= cellValue) &&  ((x ===5) || (y === 5)))  {
-     return colorTable[5];
- }
- if ( (i <= cellValue) &&  ((x ===4) || (y === 4)))  {
-     return colorTable[4];
- }
- if ( (i <= cellValue) &&  ((x ===3) || (y === 3)))  {
-     return colorTable[3];
- }
- if ( (i <= cellValue) &&  ((x ===2) || (y === 2)))  {
-     return colorTable[2];
- }
- if ( (i <= cellValue) &&  ((x ===1) || (y === 1)))  {
-     return '';
- }
+    var cellValue;
+    i = i;
+    cellValue = (op === 'm' ? x*y : x+y);  
+    if ( (i <= cellValue) && (x ===12) || (y === 12))  {
+        return colorTable[12];
+    }
+    if ( (i <= cellValue) &&  ((x ===11) || (y === 11)))  {
+        return colorTable[11];
+    }
+    if ( (i <= cellValue) &&  ((x ===10) || (y === 10)))  {
+        return colorTable[10];
+    }
+    if ( (i <= cellValue) &&  ((x ===9) || (y === 9)))  {
+        return colorTable[9];
+    }
+    if ( (i <= cellValue) &&  ((x ===8) || (y === 8)))  {
+        return colorTable[8];
+    }
+    if ( (i <= cellValue) &&  ((x ===7) || (y === 7)))  {
+        return colorTable[7];
+    }
+    if ( (i <= cellValue) &&  ((x ===6) || (y === 6)))  {
+        return colorTable[6];
+    }
+    if ( (i <= cellValue) &&  ((x ===5) || (y === 5)))  {
+        return colorTable[5];
+    }
+    if ( (i <= cellValue) &&  ((x ===4) || (y === 4)))  {
+        return colorTable[4];
+    }
+    if ( (i <= cellValue) &&  ((x ===3) || (y === 3)))  {
+        return colorTable[3];
+    }
+    if ( (i <= cellValue) &&  ((x ===2) || (y === 2)))  {
+        return colorTable[2];
+    }
+    if ( (i <= cellValue) &&  ((x ===1) || (y === 1)))  {
+        return '';
+    }
 }
 
 function make100s(){
@@ -107,7 +107,7 @@ function make100s(){
         even;
     r.appendChild(c);
     c.className = 'titleCell';
-    c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
+    c.innerHTML = '<img class="titleImage" src="img/numbers1-100.png" alt="">';
     c.setAttribute('colspan', 10);
     t.appendChild(r);
     t.className = 'hundredsTable';
@@ -152,7 +152,7 @@ function makeAdd(){
     r.appendChild(c);
     c.setAttribute('colspan', 12);
     c.className = 'titleCell';
-    c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
+    c.innerHTML = '<img class="titleImage" src="img/addition.png" alt="">';
     t.appendChild(r);
     t.className = 'addTable';
     for(x=0; x <= 10; x++){
@@ -163,7 +163,7 @@ function makeAdd(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
-	    c.style.background = chooseCellColor(x, y, i, 'a');
+        c.style.background = chooseCellColor(x, y, i, 'a');
             b(i, c);
         }
     }
@@ -182,7 +182,7 @@ function makeMulti(){
         even;
     r.appendChild(c);
     c.className = 'titleCell';
-    c.innerHTML = '<img id="title" src="img/hundreds-chart.png" alt="">';
+    c.innerHTML = '<img class="titleImage" src="img/multiplication.png" alt="">';
     c.setAttribute('colspan', 12);
     t.appendChild(r);
     t.className = 'multiTable';
@@ -250,7 +250,14 @@ function init(){
         showInstructions = new joButton("", "instructionsButton"),
         label = new joLabel("Select"),
         opt = new joOption(selectOptions),
-        boardOpt = new joOption(boardOptions);
+        boardOpt = new joOption(boardOptions),
+        expando = new joExpando([
+            new joExpandoTitle("Options"),
+            new joExpandoContent([
+                opt,
+                boardOpt
+            ])
+        ]);
     instructions.src = 'instructions.html';
     instructionsView.setContainer(instructions);
     opt.setValue(opt.data.length-1);
@@ -258,18 +265,24 @@ function init(){
         screen.showPopup(instructionsView);
     });
     boardOpt.selectEvent.subscribe(function(index){
-        var table;
+        var expandoContent = new joExpandoContent();
+            expando = new joExpando([
+                new joExpandoTitle("Options"),
+                expandoContent
+            ]);
+        var cardItems = [expando, showInstructions];
         if(index === '0'){
-            table = make100s();
+            cardItems.push(make100s());
+            expandoContent.push(opt);
         }else if(index === '1'){
-            table = makeAdd();
+            cardItems.push(makeAdd());
         }else if(index === '2'){
-            table = makeMulti();
+            cardItems.push(makeMulti());
         }
-        card = new joCard([label, opt, showInstructions, table, boardOpt]);
-        stack.push(card);
+        expandoContent.push(boardOpt);
+        stack.push(new joCard(cardItems));
     });
-    card = new joCard([label, opt, showInstructions, make100s(), boardOpt]);
+    card = new joCard([expando, showInstructions, make100s()]);
     opt.selectEvent.subscribe(function(index){
         //stack.push(card);
         var group = opt.data[index];
