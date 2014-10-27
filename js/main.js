@@ -1,4 +1,9 @@
-var nums = {
+var trash = [],
+    startEqTimeoutMs = 1000,
+    selectedOpt,
+    screen,
+    stack,
+    nums = {
         even: [],
         odd: [],
         fives: [],
@@ -35,6 +40,7 @@ var nums = {
         "greenyellow",
         "honeydew",
         "mistyrose",
+        "moccasin"
    ];
 function selectNumGroup(key){
     var keys = Object.keys(nums),
@@ -50,52 +56,51 @@ function selectNumGroup(key){
     }
     for(y = 0; y < nums[key].length; y++){
         nums[key][y].style.color = 'red';
-       nums[key][y].style.background = '';
+        nums[key][y].style.background = '';
     }
 }
 
-function chooseCellColor( x, y, i, op) {
-    var cellValue;
-    i = i;
-    cellValue = (op === 'm' ? x*y : x+y);  
-    if ( (i <= cellValue) && (x ===12) || (y === 12))  {
+function chooseCellColor(x, y) {
+    if (x === 12 || y === 12)  {
         return colorTable[12];
     }
-    if ( (i <= cellValue) &&  ((x ===11) || (y === 11)))  {
+    if (x ===11 || y === 11)  {
         return colorTable[11];
     }
-    if ( (i <= cellValue) &&  ((x ===10) || (y === 10)))  {
+    if (x ===10 || y === 10)  {
         return colorTable[10];
     }
-    if ( (i <= cellValue) &&  ((x ===9) || (y === 9)))  {
+    if (x ===9 || y === 9)  {
         return colorTable[9];
     }
-    if ( (i <= cellValue) &&  ((x ===8) || (y === 8)))  {
+    if (x ===8 || y === 8)  {
         return colorTable[8];
     }
-    if ( (i <= cellValue) &&  ((x ===7) || (y === 7)))  {
+    if (x ===7 || y === 7)  {
         return colorTable[7];
     }
-    if ( (i <= cellValue) &&  ((x ===6) || (y === 6)))  {
+    if (x ===6 || y === 6)  {
         return colorTable[6];
     }
-    if ( (i <= cellValue) &&  ((x ===5) || (y === 5)))  {
+    if (x ===5 || y === 5)  {
         return colorTable[5];
     }
-    if ( (i <= cellValue) &&  ((x ===4) || (y === 4)))  {
+    if (x ===4 || y === 4)  {
         return colorTable[4];
     }
-    if ( (i <= cellValue) &&  ((x ===3) || (y === 3)))  {
+    if (x ===3 || y === 3)  {
         return colorTable[3];
     }
-    if ( (i <= cellValue) &&  ((x ===2) || (y === 2)))  {
+    if (x ===2 || y === 2)  {
         return colorTable[2];
     }
-    if ( (i <= cellValue) &&  ((x ===1) || (y === 1)))  {
+    if (x ===1 || y === 1)  {
         return '';
     }
 }
-
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 function make100s(){
     var i = 1,
         d = document.createElement('div'),
@@ -107,7 +112,7 @@ function make100s(){
         even;
     r.appendChild(c);
     c.className = 'titleCell';
-    c.innerHTML = '<img class="titleImage" src="img/numbers1-100.png" alt="">';
+    c.innerHTML = '<img id="hundredsTitle" class="titleImage" src="img/numbers1-100.png" alt="">';
     c.setAttribute('colspan', 10);
     t.appendChild(r);
     t.className = 'hundredsTable';
@@ -117,6 +122,7 @@ function make100s(){
         for(y=0; y < 10; y++){
             even = i % 2 === 0;
             c = document.createElement('td');
+            c.id = 'cell_' + i;
             r.appendChild(c);
             c.innerHTML = i;
             (even ? nums.even : nums.odd).push(c);
@@ -163,7 +169,7 @@ function makeAdd(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
-        c.style.background = chooseCellColor(x, y, i, 'a');
+            c.style.background = chooseCellColor(x+1, y+1);
             b(i, c);
         }
     }
@@ -194,40 +200,7 @@ function makeMulti(){
             c = document.createElement('td');
             r.appendChild(c);
             c.innerHTML = i;
-	    c.style.background = chooseCellColor(x, y, i, 'm');
-//           if ( (i <= 12*12) && (x ===12) || (y === 12))  {
-//             c.style.background = 'mistyrose';
-//            }
-//           if ( (i <= 11*11) &&  ((x ===11) || (y === 11)))  {
-//             c.style.background = 'honeydew';
-//            }
-//           if ( (i <= 10*10) &&  ((x ===10) || (y === 10)))  {
-//             c.style.background = 'greenyellow';
-//            }
-//           if ( (i <= 9*9) &&  ((x ===9) || (y === 9)))  {
-//             c.style.background = 'gainsboro';
-//            }
-//           if ( (i <= 8*8) &&  ((x ===8) || (y === 8)))  {
-//             c.style.background = 'gold';
-//            }
-//           if ( (i <= 7*7) &&  ((x ===7) || (y === 7)))  {
-//             c.style.background = 'cyan';
-//            }
-//           if ( (i <= 6*6) &&  ((x ===6) || (y === 6)))  {
-//             c.style.background = 'cadetblue';
-//            }
-//           if ( (i <= 5*5) &&  ((x ===5) || (y === 5)))  {
-//             c.style.background = 'lightblue';
-//            }
-//           if ( (i <= 4*4) &&  ((x ===4) || (y === 4)))  {
-//             c.style.background = 'bisque';
-//            }
-//           if ( (i <= 3*3) &&  ((x ===3) || (y === 3)))  {
-//             c.style.background = 'aqua';
-//            }
-//           if ( (i <= 2*2) &&  ((x ===2) || (y === 2)))  {
-//             c.style.background = 'yellow';
-//            }
+            c.style.background = chooseCellColor(x, y);
             b(i, c);
         }
     }
@@ -240,56 +213,163 @@ function b(i, c){
         alert(i);
     };
 }
-
-function init(){
-    jo.load();
-    var screen,
-        instructionsView = new joView(),
-        instructions = document.createElement('iframe'),
-        stack = new joStack(),
-        showInstructions = new joButton("", "instructionsButton"),
-        label = new joLabel("Select"),
+function getTableByIndex(index){
+    if(index === '0'){
+        selectedOpt = selectOptions.length -1;
+        return make100s();
+    }else if(index === '1'){
+        return makeAdd();
+    }else if(index === '2'){
+        return makeMulti();
+    }
+}
+function position(e) {
+    var x = 0, y = 0;
+    while (e.offsetParent) {
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        x -= e.scrollLeft;
+        y -= e.scrollTop;
+        e = e.offsetParent;
+    }
+    return { x: x, y: y };
+}
+function startEq(numA, numB, eq){
+    var numB1 = Math.floor(numB / 10),
+        numB2 = numB % 10;
+    return function(){
+        var img = document.getElementById('hundredsTitle'),
+            pos = position(img),
+            cell = document.getElementById('cell_' + numA),
+            posA = position(cell),
+            eqClone;
+        $(img).animate({
+            opacity: 0
+        }, 1000);
+        $(eq).animate({
+            fontSize: '200%',
+            top: pos.y + 'px',
+            left: pos.x + 'px'
+        }, 1000, function(){
+            // clone for numA
+            eqClone = eq.cloneNode();
+            document.body.appendChild(eqClone);
+            eqClone.innerHTML = numA;
+            trash.push(eqClone);
+            $(eqClone).animate({
+                top: posA.y + 'px',
+                left: posA.x + 'px',
+                fontSize: '100%'
+            }, 1000, function(){
+                $(eqClone).animate({
+                    opacity: 0
+                }, 500);
+                $(cell).animate({
+                    backgroundColor: '#DDA0DD'
+                }, 500);
+            });
+        });
+    };
+}
+function getEquation(add){
+    var numA = getRandomInt(1, 50),
+        numB = getRandomInt(1, 50),
+        numT,
+        eq = document.createElement('span'),
+        h = document.documentElement.clientHeight,
+        w = document.documentElement.clientWidth;
+    trash.push(eq);
+    if(numB > numA){
+        numT = numA;
+        numA = numB;
+        numB = numT;
+    }
+    document.body.appendChild(eq);
+    eq.innerHTML = (numA + (add ? '+' : '-') + numB);
+    eq.className = 'eq';
+    eq.style.left = (w / 2) - (eq.offsetWidth / 2) + 'px';
+    eq.style.top = (h /2) - (eq.offsetHeight/ 2) + 'px';
+    setTimeout(startEq(numA, numB, eq), startEqTimeoutMs);
+}
+function cleanupTrash(){
+    var img = document.getElementById('hundredsTitle'),
+        x,
+        y,
+        i = 1;
+    img.style.opacity = '1';
+    for(x = 0; x < trash.length; x++){
+        if(trash[x].parentNode){
+            trash[x].parentNode.removeChild(trash[x]);
+        }
+    }
+    for(x = 0; x < 10; x++){
+        for(y = 0; y < 10; y++){
+            document.getElementById('cell_' + i++).style.background = '';
+        }
+    }
+    trash = [];
+}
+function showMenu(index){
+    var instHtml = '<iframe class="instructions" src="instructions.html"></iframe>',
         opt = new joOption(selectOptions),
         boardOpt = new joOption(boardOptions),
-        expando = new joExpando([
-            new joExpandoTitle("Options"),
-            new joExpandoContent([
-                opt,
-                boardOpt
-            ])
-        ]);
-    instructions.src = 'instructions.html';
-    instructionsView.setContainer(instructions);
-    opt.setValue(opt.data.length-1);
-    showInstructions.selectEvent.subscribe(function(){
-        screen.showPopup(instructionsView);
+        backButton = new joButton('Back', 'buttonTopMargin'),
+        playAddButton = new joButton('Play Addition'),
+        playSubButton = new joButton('Play Subtraction'),
+        instructions = new joHTML(instHtml);
+    backButton.selectEvent.subscribe(function(){
+        stack.pop();
     });
-    boardOpt.selectEvent.subscribe(function(index){
-        var expandoContent = new joExpandoContent();
-            expando = new joExpando([
-                new joExpandoTitle("Options"),
-                expandoContent
-            ]);
-        var cardItems = [expando, showInstructions];
-        if(index === '0'){
-            cardItems.push(make100s());
-            expandoContent.push(opt);
-        }else if(index === '1'){
-            cardItems.push(makeAdd());
-        }else if(index === '2'){
-            cardItems.push(makeMulti());
-        }
-        expandoContent.push(boardOpt);
-        stack.push(new joCard(cardItems));
+    opt.setValue(selectedOpt);
+    boardOpt.setValue(index);
+    boardOpt.selectEvent.subscribe(loadTableView);
+    playAddButton.selectEvent.subscribe(function(index){
+        stack.pop();
+        getEquation(true);
     });
-    card = new joCard([expando, showInstructions, make100s()]);
+    playSubButton.selectEvent.subscribe(function(index){
+        stack.pop();
+        getEquation();
+    });
     opt.selectEvent.subscribe(function(index){
-        //stack.push(card);
+        selectedOpt = index;
         var group = opt.data[index];
         selectNumGroup(group.toLowerCase());
+        stack.pop();
     });
-    screen = new joScreen(stack);
+    return function(){
+        cleanupTrash();
+        var expando = new joExpando([
+                new joExpandoTitle('Instructions'),
+                new joExpandoContent([instructions])
+            ]),
+            cardArray = [
+                boardOpt,
+                expando,
+                backButton
+            ],
+            card;
+        if(index === '0'){
+            cardArray.unshift(opt);
+            cardArray.unshift(playAddButton);
+            cardArray.unshift(playSubButton);
+        }
+        card = new joCard(cardArray);
+        stack.push(card);
+    };
+}
+function loadTableView(index){
+    var menuButton = new joButton('&#x1801;', 'menu'),
+        table = getTableByIndex(index),
+        card = new joCard([menuButton, table]);
+    menuButton.selectEvent.subscribe(showMenu(index));
     stack.push(card);
+}
+function init(){
+    jo.load();
+    stack = new joStack();
+    screen = new joScreen(stack);
+    loadTableView('0');
 }
 
 window.addEventListener('DOMContentLoaded', init);

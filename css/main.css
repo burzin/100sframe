@@ -7,16 +7,45 @@ body {
     font-size: 120%;
     padding-top: 10px;
 }
-joexpando {
-    font-size: 80%;
+jooption, joexpando, jobutton {
+    font-size: 60%;
+}
+.eq {
+    font-size: 10em;
+    text-shadow: 0px 0px 24px rgba(219, 217, 150, 1);
+    position: fixed;
+    z-index: 1000;
+}
+.menu {
+    text-align: left;
+    color: black;
+    background: transparent;
+    position: fixed;
+    font-size: 3em;
+    border: none;
+    height: 1em;
+    width: 1em;
+    border-radius: 0;
+    line-height: 1em;
+    margin: 0 0 0 0.12em;
+    padding: 0 0 0 0;
+}
+.buttonTopMargin {
+    margin-top: 1em;
+}
+.instructions {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background: white;
 }
 jocard, body {
-    background: url('../img/stars.jpg');
+    /*background: url('../img/stars.jpg');*/
     background-position: center; 
     background-size: 100% 100%;
 }
 .instructionsButton {
-    background: url('http://img2.wikia.nocookie.net/__cb20130715095303/sword-of-the-stars-the-pit/images/thumb/0/06/Question-mark.jpg/480px-Question-mark.jpg');
+    background: url('../img/questionmark.jpg');
     background-position: center; 
     background-size: 100% 100%;
     height: 30px;
@@ -29,16 +58,15 @@ jocard, body {
     max-height: 4em;
 }
 table tr td:nth-child(even){
-    background: lightyellow;
+    background-color: lightyellow;
 }
 table tr td:nth-child(odd){
-    background: lightblue;
+    background-color: lightblue;
 }
 .titleCell {
     background: transparent !important;
 }
 .multiChart, .hundredsChart, .addChart {
-    background: url('../img/stars.jpg');
     padding: 20px;
     margin-top: 10px;
 }
