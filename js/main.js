@@ -158,7 +158,7 @@ function makeAdd(){
     r.appendChild(c);
     c.setAttribute('colspan', 12);
     c.className = 'titleCell';
-    c.innerHTML = '<img class="titleImage" src="img/addition.png" alt="">';
+    c.innerHTML = '<img id="hundredsTitle" class="titleImage" src="img/addition.png" alt="">';
     t.appendChild(r);
     t.className = 'addTable';
     for(x=0; x <= 10; x++){
@@ -188,7 +188,7 @@ function makeMulti(){
         even;
     r.appendChild(c);
     c.className = 'titleCell';
-    c.innerHTML = '<img class="titleImage" src="img/multiplication.png" alt="">';
+    c.innerHTML = '<img id="hundredsTitle" class="titleImage" src="img/multiplication.png" alt="">';
     c.setAttribute('colspan', 12);
     t.appendChild(r);
     t.className = 'multiTable';
@@ -302,11 +302,14 @@ function cleanupTrash(){
             trash[x].parentNode.removeChild(trash[x]);
         }
     }
+// cell_X is only set for 100s table so check if its not null then clear
+   if (document.getElementById('cell_1')) {
     for(x = 0; x < 10; x++){
         for(y = 0; y < 10; y++){
             document.getElementById('cell_' + i++).style.background = '';
         }
     }
+   }
     trash = [];
 }
 function showMenu(index){
