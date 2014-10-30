@@ -1,17 +1,35 @@
 html {
     min-height: 100%;
 }
+@media (max-width: 600px) {
+  jocard {
+    font-size: 80%;
+  }
+}
+
+@media (max-width: 400px) {
+  jocard {
+    font-size: 70%;
+  }
+}
+
+jocard, body {
+    /*background: url('../img/stars.jpg');*/
+    background-position: center; 
+    background-size: 100% 100%;
+    padding-top: 60px;
+}
+
 body {
     font-family: sans-serif;
     text-align: center;
     font-size: 120%;
-    padding-top: 10px;
 }
 jooption, joexpando, jobutton {
     font-size: 60%;
 }
 .eq {
-    font-size: 10em;
+    font-size: 7em;
     text-shadow: 0px 0px 24px rgba(219, 217, 150, 1);
     position: fixed;
     z-index: 1000;
@@ -51,11 +69,7 @@ jooption, joexpando, jobutton {
     border: none;
     background: white;
 }
-jocard, body {
-    /*background: url('../img/stars.jpg');*/
-    background-position: center; 
-    background-size: 100% 100%;
-}
+
 .instructionsButton {
     background: url('../img/questionmark.jpg');
     background-position: center; 
