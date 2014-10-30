@@ -30,16 +30,16 @@ var trash = [],
    colorTable = [
         "",
         "yellow",
-        "aqua",
+        "aquamarine",
         "bisque",
         "lightblue",
-        "cadetblue",
-        "cyan",
         "gold",
+        "cyan",
         "gainsboro",
+        "cadetblue",
         "greenyellow",
         "honeydew",
-        "mistyrose",
+        "springgreen",
         "moccasin"
    ];
 function selectNumGroup(key){
@@ -237,12 +237,38 @@ function position(e) {
 function startEq(numA, numB, eq){
     var numB1 = Math.floor(numB / 10),
         numB2 = numB % 10;
+     var eq2 = document.createElement('span');
+     var eq3 = document.createElement('span');
+    var numB3 = '';
+    var numB4 = '';
+    if (numB1 === 0) {
+     numB3 = '0';
+    }
+   else {
+    for (var i=1; i<=numB1; i++) {
+     numB3 += '10' + '+';
+    }
+   }
+   // numB3 += (numB2 === 0 ? '' : numB2);
+    numB3 += numB2;
+    numB4 = numB + " = " + '(' + numB1 + ')' + "10's" + " + " + '(' + numB2 + ')' + " " + "1's";  
+    trash.push(eq2, eq3);
     return function(){
         var img = document.getElementById('hundredsTitle'),
             pos = position(img),
             cell = document.getElementById('cell_' + numA),
             posA = position(cell),
             eqClone;
+    eq2.innerHTML = (numB + '=' + numB3);
+    eq2.className = 'eq2';
+    eq2.style.left = pos.x + 'px';;
+    eq2.style.top = pos.y+20 + 'px';
+    document.body.appendChild(eq2);
+    eq3.innerHTML = numB4;
+    eq3.className = 'eq3';
+    eq3.style.left = pos.x+50 + 'px';;
+    eq3.style.top = pos.y+50 + 'px';
+    document.body.appendChild(eq3);
         $(img).animate({
             opacity: 0
         }, 1000);
@@ -272,23 +298,25 @@ function startEq(numA, numB, eq){
     };
 }
 function getEquation(add){
-    var numA = getRandomInt(1, 50),
-        numB = getRandomInt(1, 50),
+    var numA = getRandomInt(1, 99),
+        numB = getRandomInt(1, 100-numA),
         numT,
         eq = document.createElement('span'),
         h = document.documentElement.clientHeight,
         w = document.documentElement.clientWidth;
     trash.push(eq);
+    numB = (numA === numB ? getRandomInt(1, 50) : numB);
     if(numB > numA){
         numT = numA;
         numA = numB;
         numB = numT;
     }
     document.body.appendChild(eq);
-    eq.innerHTML = (numA + (add ? '+' : '-') + numB);
+    eq.innerHTML = (numA + (add ? '+' : '-') + numB + '=');
     eq.className = 'eq';
     eq.style.left = (w / 2) - (eq.offsetWidth / 2) + 'px';
     eq.style.top = (h /2) - (eq.offsetHeight/ 2) + 'px';
+    
     setTimeout(startEq(numA, numB, eq), startEqTimeoutMs);
 }
 function cleanupTrash(){
