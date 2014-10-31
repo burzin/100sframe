@@ -34,18 +34,6 @@ jooption, joexpando, jobutton {
     position: fixed;
     z-index: 1000;
 }
-.eq2 {
-    font-size: 2em;
-    text-shadow: 0px 0px 24px rgba(219, 217, 150, 1);
-    position: fixed;
-    z-index: 1000;
-}
-.eq3 {
-    font-size: 2em;
-    text-shadow: 0px 0px 24px rgba(219, 217, 150, 1);
-    position: fixed;
-    z-index: 1000;
-}
 .menu {
     text-align: left;
     color: black;

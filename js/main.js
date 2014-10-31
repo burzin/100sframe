@@ -212,7 +212,7 @@
     }
     function b(i, c){
         c.onclick = function(){
-            alert(i);
+            alert( "The number is " + i);
         };
     }
     function getTableByIndex(index){
@@ -291,15 +291,15 @@
             eqb = document.createElement('span'),
             eqEq = document.createElement('span'),
             eq2 = document.createElement('span'),
-            eq3 = document.createElement('span'),
+            //eq3 = document.createElement('span'),
             h = document.documentElement.clientHeight,
             w = document.documentElement.clientWidth,
-            numB1 = Math.floor(numB / 10),
-            numB2 = numB % 10,
+            numB1, 
+            numB2,
             cell,
             posA,
-            numB3 = '',
-            numB4 = '',
+            //numB3 = '',
+            //numB4 = '',
             img = document.getElementById('hundredsTitle'),
             pos = position(img),
             eqcClone,
@@ -312,6 +312,8 @@
             numA = numB;
             numB = numT;
         }
+        numB1 = Math.floor(numB / 10);
+        numB2 = numB % 10;
         var tens = [];
         if (numB1 === 0) {
             tens.push('0');
@@ -338,25 +340,25 @@
 
 
         // numB3 += (numB2 === 0 ? '' : numB2);
-        numB3 += numB2;
-        numB4 = numB + " = " + '(' + numB1 + ')' + "10's" + " + " + '(' + numB2 + ')' + " " + "1's";  
-        trash.push(eq2, eq3);
+        //numB3 += numB2;
+        //numB4 = numB + " = " + '(' + numB1 + ')' + "10's" + " + " + '(' + numB2 + ')' + " " + "1's";  
+        //trash.push(eq2, eq3);
 
-        eq2.innerHTML = (numB + '=' + numB3);
-        eq2.className = 'eq2';
-        eq2.style.left = pos.x + 'px';
-        eq2.style.top = pos.y + 20 + 'px';
-        
-        eq3.innerHTML = numB4;
-        eq3.className = 'eq3';
-        eq3.style.left = pos.x + 50 + 'px';
-        eq3.style.top = pos.y + 50 + 'px';
+        //eq2.innerHTML = (numB + '=' + numB3);
+        //eq2.className = 'eq2';
+        //eq2.style.left = pos.x + 'px';
+        //eq2.style.top = pos.y + 20 + 'px';
+        //
+        //eq3.innerHTML = numB4;
+        //eq3.className = 'eq3';
+        //eq3.style.left = pos.x + 50 + 'px';
+        //eq3.style.top = pos.y + 50 + 'px';
 
         //document.body.appendChild(eq3);
         //document.body.appendChild(eq2);
 
         var keyFrames = [];
-        var keyFrameRate = 100;
+        var keyFrameRate = 300;
         keyFrames.push(function(done){
             setTimeout(done, keyFrameRate);
         });
