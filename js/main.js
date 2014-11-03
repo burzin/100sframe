@@ -416,6 +416,7 @@
             eqbClone.style.top = pos.y + 'px';
             eqbClone.style.left = pos.x + 'px';
             eqbClone.innerHTML = numB + ' = ';
+            trash.push(eqbClone);
             document.body.appendChild(eqbClone);
             $(eqbClone).animate({
                 top: (pos.y + eq.offsetHeight) + 'px',
@@ -461,6 +462,7 @@
                 opacity: 0
             }, getOptions(keyFrameRate, function(){
                 eq.innerHTML += result;
+                trash.push(c);
                 done();
             }));
         });
