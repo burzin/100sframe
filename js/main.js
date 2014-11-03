@@ -1,6 +1,8 @@
 (function(){
     'use strict';
-    var trash = [],
+    var pauseTimeout = 2000,
+        keyFrameRate = 1000,
+        trash = [],
         stopEqLoop = false,
         selectedOpt,
         screen,
@@ -255,6 +257,38 @@
         });
     }
     function getEquation(add, callback){
+        function getOptions(timing, callback){
+            return {
+                queue: false,
+                duration: timing,
+                complete: callback
+            };
+        }
+        function animateCellHighlight(highlightCell, flyingCellValue){
+            return function(done){
+                $('#' + highlightCell).animate({
+                    backgroundColor: 'black',
+                    color: 'white',
+                    textShadow: '0px 0px 24px rgba(219, 217, 150, 1)'
+                }, getOptions(keyFrameRate, done));
+                var hCell = document.getElementById(highlightCell),
+                    cPos = position(lastEqClonedNode),
+                    c = eq.cloneNode(),
+                    hPos = position(hCell);
+                c.innerHTML = flyingCellValue;
+                c.style.position = 'absolute';
+                c.style.top = cPos.y + 'px';
+                c.style.left = cPos.x + lastEqClonedNode.offsetWidth + 'px';
+                document.body.appendChild(c);
+                $(c).animate({
+                    top: hPos.y + 'px',
+                    left: hPos.x + 'px',
+                    opacity: 0
+                }, getOptions(keyFrameRate, function(){
+                    trash.push(c);
+                }));
+            };
+        }
         function animateString(aryStates, node, timing, callback){
             var procs = [],
                 previousNode = node,
@@ -263,21 +297,22 @@
             aryStates.map(function(i){
                 procs.push(function(done){
                     var clone = node.cloneNode();
+                    lastEqClonedNode = clone;
                     str += i;
                     clone.innerHTML = str;
                     clone.style.opacity = 0;
                     document.body.appendChild(clone);
                     $(clone).animate({
                         opacity: 1
-                    }, timing, function(){
+                    }, getOptions(timing * 0.5, function(){
                         $(previousNode).animate({
                             opacity: 0
-                        }, timing, function(){
+                        }, getOptions(timing * 0.5, function(){
                             previousNode = clone;
                             trash.push(previousNode);
                             done();
-                        });
-                    });
+                        }));
+                    }));
                 });
             });
             async.waterfall(procs, callback);
@@ -290,21 +325,19 @@
             eqOp = document.createElement('span'),
             eqb = document.createElement('span'),
             eqEq = document.createElement('span'),
-            eq2 = document.createElement('span'),
-            //eq3 = document.createElement('span'),
             h = document.documentElement.clientHeight,
             w = document.documentElement.clientWidth,
             numB1, 
             numB2,
             cell,
             posA,
-            //numB3 = '',
-            //numB4 = '',
             img = document.getElementById('hundredsTitle'),
             pos = position(img),
             eqcClone,
             eqaClone,
-            eqbClone;
+            eqbClone,
+            result,
+            lastEqClonedNode;
         trash.push(eq);
         numB = (numA === numB ? getRandomInt(1, 100-numA) : numB);
         if(numB > numA){
@@ -314,13 +347,10 @@
         }
         numB1 = Math.floor(numB / 10);
         numB2 = numB % 10;
+        result = add ? numA + numB : numA - numB;
         var tens = [];
-        if (numB1 === 0) {
-            tens.push('0');
-        } else {
-            for (var i=1; i<=numB1; i++) {
-                tens.push(' 10 ' + ' + ');
-            }
+        for (var i=1; i<=numB1; i++) {
+            tens.push(' 10 ' + ' + ');
         }
         tens.push(numB2);
         cell = document.getElementById('cell_' + numA);
@@ -338,27 +368,7 @@
         eq.style.left = (w / 2) - (eq.offsetWidth / 2) + 'px';
         eq.style.top = (h /2) - (eq.offsetHeight/ 2) + 'px';
 
-
-        // numB3 += (numB2 === 0 ? '' : numB2);
-        //numB3 += numB2;
-        //numB4 = numB + " = " + '(' + numB1 + ')' + "10's" + " + " + '(' + numB2 + ')' + " " + "1's";  
-        //trash.push(eq2, eq3);
-
-        //eq2.innerHTML = (numB + '=' + numB3);
-        //eq2.className = 'eq2';
-        //eq2.style.left = pos.x + 'px';
-        //eq2.style.top = pos.y + 20 + 'px';
-        //
-        //eq3.innerHTML = numB4;
-        //eq3.className = 'eq3';
-        //eq3.style.left = pos.x + 50 + 'px';
-        //eq3.style.top = pos.y + 50 + 'px';
-
-        //document.body.appendChild(eq3);
-        //document.body.appendChild(eq2);
-
         var keyFrames = [];
-        var keyFrameRate = 300;
         keyFrames.push(function(done){
             setTimeout(done, keyFrameRate);
         });
@@ -368,10 +378,10 @@
                 fontSize: '200%',
                 top: pos.y + 'px',
                 left: pos.x + 'px'
-            }, keyFrameRate, done);
+            }, getOptions(keyFrameRate, done));
             $(img).animate({
                 opacity: 0
-            }, keyFrameRate);
+            }, getOptions(keyFrameRate));
         });
 
         keyFrames.push(function(done){
@@ -387,16 +397,16 @@
                 top: posA.y + 'px',
                 left: posA.x + 'px',
                 fontSize: '100%'
-            }, keyFrameRate, done);
+            }, getOptions(keyFrameRate, done));
         });
 
         keyFrames.push(function(done){
             $(eqaClone).animate({
                 opacity: 0
-            }, keyFrameRate * 0.5);
+            }, getOptions(keyFrameRate * 0.5));
             $(cell).animate({
                 backgroundColor: '#DDA0DD'
-            }, keyFrameRate * 0.5, done);
+            }, getOptions(keyFrameRate * 0.5, done));
         });
 
         keyFrames.push(function(done){
@@ -410,17 +420,54 @@
             $(eqbClone).animate({
                 top: (pos.y + eq.offsetHeight) + 'px',
                 left: posA.x + 'px'
-            }, keyFrameRate, done);
+            }, getOptions(keyFrameRate, done));
         });
-
-
 
         keyFrames.push(function(done){
-           animateString(tens, eqbClone, keyFrameRate, done);
+            animateString(tens, eqbClone, keyFrameRate, function(){
+                //setTimeout(done, numB2 * keyFrameRate);
+            });
+            var procs = [],
+                cellId,
+                x;
+            if(tens.length > 1){
+                for(x = 0; x < tens.length -1; x++){
+                    cellId = add ? numA + ((x + 1) * 10) : numA - ((x + 1) * 10);
+                    procs.push(animateCellHighlight('cell_' + cellId, 10));
+                }
+            }
+            async.waterfall(procs, function(){
+                procs = [];
+                for(x = add ? numA + 1 + (numB1 * 10) : numA - 1 - (numB1 * 10); add ? x <= result : x >= result; add ? x++ : x--){
+                    procs.push(animateCellHighlight('cell_' + x, 1));
+                }
+                async.waterfall(procs, done);
+            });
         });
 
-        async.waterfall(keyFrames, callback);
+        keyFrames.push(function(done){
+            var tCell = document.getElementById('cell_' + result),
+                tPos = position(tCell),
+                eqPos = position(eq),
+                c = eq.cloneNode();
+            c.style.position = 'absolute';
+            c.style.top = tPos.y + 'px';
+            c.style.left = tPos.x + 'px';
+            c.innerHTML = result;
+            document.body.appendChild(c);
+            $(c).animate({
+                left: eqPos.x + eq.offsetWidth + 'px',
+                top: eqPos.y + 'px',
+                opacity: 0
+            }, getOptions(keyFrameRate, function(){
+                eq.innerHTML += result;
+                done();
+            }));
+        });
 
+        async.waterfall(keyFrames, function(){
+            setTimeout(callback, pauseTimeout);
+        });
     }
     function cleanupTrash(){
         var img = document.getElementById('hundredsTitle'),
@@ -437,7 +484,10 @@
        if (document.getElementById('cell_1')) {
         for(x = 0; x < 10; x++){
             for(y = 0; y < 10; y++){
-                document.getElementById('cell_' + i++).style.background = '';
+                var c = document.getElementById('cell_' + i++);
+                c.style.background = '';
+                c.style.color = 'inherit';
+                c.style.textShadow = 'none';
             }
         }
        }
