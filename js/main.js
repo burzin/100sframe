@@ -545,7 +545,8 @@
         };
     }
     function loadTableView(index){
-        var menuButton = new joButton('&#x1801;', 'menu'),
+        //var menuButton = new joButton('&#x1801;', 'menu'),
+        var menuButton = new joButton().setStyle('menubutton'),
             table = getTableByIndex(index),
             card = new joCard([menuButton, table]);
         menuButton.selectEvent.subscribe(showMenu(index));
